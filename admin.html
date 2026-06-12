@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>MORMOR Admin</title>
+
+<link rel="stylesheet"
+href="admin.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🎁 MORMOR BTS DRAW</h1>
+
+<h2>奖品管理 / Gestión de premios</h2>
+
+<div class="add-box">
+
+    <div>
+
+        <div>奖品名称</div>
+
+        <input
+        id="prizeName"
+        type="text"
+        placeholder="奖品名称">
+
+    </div>
+
+    <div>
+
+        <div>库存</div>
+
+        <input
+        id="prizeStock"
+        type="number"
+        placeholder="库存数量">
+
+    </div>
+
+    <div>
+
+        <div>权重</div>
+
+        <input
+        id="prizeWeight"
+        type="number"
+        value="1">
+
+    </div>
+
+    <div>
+
+        <div>解锁抽数</div>
+
+        <input
+        id="unlockCount"
+        type="number"
+        value="0">
+
+    </div>
+
+    <div>
+
+        <div>开始日期</div>
+
+        <input
+        id="unlockDate"
+        type="date">
+
+    </div>
+
+    <div>
+
+        <div>&nbsp;</div>
+
+        <label>
+
+            <input
+            type="checkbox"
+            id="unlimited">
+
+            无限库存
+
+        </label>
+
+    </div>
+
+    <div>
+
+        <div>&nbsp;</div>
+
+        <button id="addBtn">
+
+        添加奖品
+
+        </button>
+
+    </div>
+
+</div>
+
+<div
+style="
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+">
+
+<h3>当前奖品列表</h3>
+
+<div>
+
+当前抽奖次数：
+
+<span id="drawCountDisplay">
+
+0
+
+</span>
+
+<button
+id="resetDrawBtn">
+
+重置抽奖次数
+
+</button>
+
+</div>
+
+</div>
+
+<div id="prizeList">
+
+</div>
+
+</div>
+
+<script src="admin.js"></script>
+
+</body>
+
+</html>
