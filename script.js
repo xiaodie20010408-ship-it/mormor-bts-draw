@@ -40,42 +40,40 @@ armyBomb.addEventListener("click", () => {
     ) || 0;
 
     const today =
-new Date()
-.toISOString()
-.split("T")[0];
+    new Date()
+    .toISOString()
+    .split("T")[0];
 
-const availablePrizes =
-prizes.filter(prize =>
+    const availablePrizes =
+    prizes.filter(prize =>
 
-    (
-        prize.unlimited ||
+        (
+            prize.unlimited ||
+            prize.stock > 0
+        )
 
-        prize.stock > 0
-    )
+        &&
 
-    &&
+        drawCount >=
+        (
+            prize.unlockCount || 0
+        )
 
-    drawCount >=
-    (
-        prize.unlockCount || 0
-    )
+        &&
 
-    &&
+        (
+            !prize.unlockDate ||
+            prize.unlockDate <= today
+        )
 
-    (
-        !prize.unlockDate ||
-
-        prize.unlockDate <= today
-    )
-
-);
+    );
 
     if(
         availablePrizes.length === 0
     ){
 
         alert(
-        "奖品已全部发放完毕"
+            "奖品已全部发放完毕"
         );
 
         return;
@@ -117,95 +115,86 @@ prizes.filter(prize =>
 
         let weightedPool = [];
 
-availablePrizes.forEach(prize => {
+        availablePrizes.forEach(prize => {
 
-    const weight =
-    prize.weight || 1;
+            const weight =
+            prize.weight || 1;
 
-    for(
-        let i = 0;
-        i < weight;
-        i++
-    ){
+            for(
+                let i = 0;
+                i < weight;
+                i++
+            ){
 
-        weightedPool.push(prize);
+                weightedPool.push(prize);
 
-    }
+            }
 
-});
+        });
 
-const randomPrize =
-weightedPool[
-    Math.floor(
-        Math.random() *
-        weightedPool.length
-    )
-];
+        const randomPrize =
 
-console.log(
-    "SAME?",
-    randomPrize === prizes[0],
-    randomPrize === prizes[1]
-);
+        weightedPool[
+            Math.floor(
+                Math.random() *
+                weightedPool.length
+            )
+        ];
 
-// 找到原数组中的对应奖品
-const prizeIndex =
-prizes.findIndex(
-    p => p.name === randomPrize.name
-);
+        console.log(
+            "中奖奖品：",
+            randomPrize.name
+        );
+
+        // ===== 扣库存 =====
 
         if(
             !randomPrize.unlimited
         ){
 
-            console.log(
-"DRAW EXECUTED",
-randomPrize.name,
-randomPrize.stock
-);
-
-randomPrize.stock--;
-
-console.log(
-"AFTER DEC",
-randomPrize.name,
-randomPrize.stock
-);
-
-console.log(
-"SAVING",
-JSON.stringify(prizes)
-);
-
-localStorage.setItem(
-    "mormorPrizes",
-    JSON.stringify(prizes)
-);
-
-console.log(
-"SAVED",
-JSON.parse(
-localStorage.getItem(
-"mormorPrizes"
-)
-)
-);
-
-            randomPrize.stock--;
-
-            localStorage.setItem(
-                "mormorPrizes",
-                JSON.stringify(prizes)
+            const prizeIndex =
+            prizes.findIndex(
+                p => p.name === randomPrize.name
             );
+
+            if(
+                prizeIndex !== -1
+            ){
+
+                prizes[
+                    prizeIndex
+                ].stock--;
+
+                console.log(
+                    "库存更新：",
+                    prizes[
+                        prizeIndex
+                    ].name,
+                    prizes[
+                        prizeIndex
+                    ].stock
+                );
+
+                localStorage.setItem(
+                    "mormorPrizes",
+                    JSON.stringify(prizes)
+                );
+
+            }
 
         }
 
+        // ===== 增加抽奖次数 =====
+
         drawCount++;
 
-localStorage.setItem(
-    "drawCount",
-    drawCount
-);
+        localStorage.setItem(
+            "drawCount",
+            drawCount
+        );
+
+        // ===== 显示奖品 =====
+
         prizeName.textContent =
         randomPrize.name;
 
