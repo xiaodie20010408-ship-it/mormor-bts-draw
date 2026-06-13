@@ -115,31 +115,40 @@ armyBomb.addEventListener("click", () => {
 
         let weightedPool = [];
 
-        availablePrizes.forEach(prize => {
+availablePrizes.forEach(prize => {
 
-            const weight =
-            prize.weight || 1;
+    const weight =
+    prize.weight || 1;
 
-            for(
-                let i = 0;
-                i < weight;
-                i++
-            ){
+    const originalIndex =
+    prizes.findIndex(
+        p => p.name === prize.name
+    );
 
-                weightedPool.push(prize);
+    for(
+        let i = 0;
+        i < weight;
+        i++
+    ){
 
-            }
+        weightedPool.push(
+            originalIndex
+        );
 
-        });
+    }
 
-        const randomPrize =
+});
 
-        weightedPool[
-            Math.floor(
-                Math.random() *
-                weightedPool.length
-            )
-        ];
+const prizeIndex =
+weightedPool[
+    Math.floor(
+        Math.random() *
+        weightedPool.length
+    )
+];
+
+const randomPrize =
+prizes[prizeIndex];
 
         console.log(
             "中奖奖品：",
@@ -149,40 +158,19 @@ armyBomb.addEventListener("click", () => {
         // ===== 扣库存 =====
 
         if(
-            !randomPrize.unlimited
-        ){
+    !randomPrize.unlimited
+){
 
-            const prizeIndex =
-            prizes.findIndex(
-                p => p.name === randomPrize.name
-            );
+    prizes[
+        prizeIndex
+    ].stock--;
 
-            if(
-                prizeIndex !== -1
-            ){
+    localStorage.setItem(
+        "mormorPrizes",
+        JSON.stringify(prizes)
+    );
 
-                prizes[
-                    prizeIndex
-                ].stock--;
-
-                console.log(
-                    "库存更新：",
-                    prizes[
-                        prizeIndex
-                    ].name,
-                    prizes[
-                        prizeIndex
-                    ].stock
-                );
-
-                localStorage.setItem(
-                    "mormorPrizes",
-                    JSON.stringify(prizes)
-                );
-
-            }
-
-        }
+}
 
         // ===== 增加抽奖次数 =====
 
