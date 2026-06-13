@@ -135,13 +135,24 @@ availablePrizes.forEach(prize => {
 });
 
 const randomPrize =
-
 weightedPool[
     Math.floor(
         Math.random() *
         weightedPool.length
     )
 ];
+
+console.log(
+    "SAME?",
+    randomPrize === prizes[0],
+    randomPrize === prizes[1]
+);
+
+// 找到原数组中的对应奖品
+const prizeIndex =
+prizes.findIndex(
+    p => p.name === randomPrize.name
+);
 
         if(
             !randomPrize.unlimited
