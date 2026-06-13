@@ -147,6 +147,12 @@ weightedPool[
             !randomPrize.unlimited
         ){
 
+            console.log(
+"DRAW EXECUTED",
+randomPrize.name,
+randomPrize.stock
+);
+
             randomPrize.stock--;
 
             localStorage.setItem(
