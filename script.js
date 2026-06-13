@@ -153,6 +153,33 @@ randomPrize.name,
 randomPrize.stock
 );
 
+randomPrize.stock--;
+
+console.log(
+"AFTER DEC",
+randomPrize.name,
+randomPrize.stock
+);
+
+console.log(
+"SAVING",
+JSON.stringify(prizes)
+);
+
+localStorage.setItem(
+    "mormorPrizes",
+    JSON.stringify(prizes)
+);
+
+console.log(
+"SAVED",
+JSON.parse(
+localStorage.getItem(
+"mormorPrizes"
+)
+)
+);
+
             randomPrize.stock--;
 
             localStorage.setItem(
