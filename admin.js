@@ -408,3 +408,16 @@ resetDrawBtn.addEventListener(
 });
 
 renderPrizes();
+
+setInterval(() => {
+
+    prizes =
+    JSON.parse(
+        localStorage.getItem(
+            "mormorPrizes"
+        )
+    ) || [];
+
+    renderPrizes();
+
+},1000);
