@@ -411,6 +411,12 @@ renderPrizes();
 
 setInterval(() => {
 
+    if(
+        editingIndex !== null
+    ){
+        return;
+    }
+
     prizes =
     JSON.parse(
         localStorage.getItem(
